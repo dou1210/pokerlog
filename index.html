@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="index.css" />
+    <title>POKERLOG</title>
+    <script>
+      var exports = {};
+    </script>
+    <script src="dist/bundle.js" type="module" defer></script>
+  </head>
+  <body>
+    <div class="background"></div>
+    <div class="main-container">
+      <header>
+        <p>MTT n°2 du 30 septembre 2022</p>
+        <button class="menu-toggle">menu</button>
+      </header>
+      <main>
+        <div class="left">
+          <span class="text">
+            <span> Round </span>
+            <span class="text" id="round-number">1</span>
+          </span>
+          <span class="text">
+            <span>Entries</span>
+            <span>8</span>
+          </span>
+          <span class="text">
+            <span>Players In</span>
+            <span>6</span>
+          </span>
+          <span class="text">
+            <span>Chip Count</span>
+            <span>160K</span>
+          </span>
+          <span class="text">
+            <span>Avg Stack</span>
+            <span>35K</span>
+          </span>
+        </div>
+
+        <div class="center">
+          <span class="text" id="title">Timer</span>
+          <span class="text" id="round-countdown-timer">&nbsp;</span>
+          <button id="start-button" type="button">Démarrer</button>
+        </div>
+
+        <div class="right">
+          <span class="text">
+            <span>Current Time</span>
+            <span class="text" id="current-time"></span>
+          </span>
+          <span class="text">
+            <span>Time Elapsed</span>
+            <span class="text" id="time-elapsed">00:00</span>
+          </span>
+          <span class="text">
+            <span>Next Break</span>
+            <span class="text" id="break">1:30:00</span>
+          </span>
+        </div>
+      </main>
+      <footer>
+        <span id="blinds">
+          <span>Blinds: </span>
+          <span class="blinds-value">50 / 100</span>
+        </span>
+        <span id="nextblind">
+          <span> Next Blinds: </span>
+          <span class="next-blind-value">100 / 200 </span>
+        </span>
+      </footer>
+    </div>
+    <dialog id="menu">
+      <div title="fermer" class="cross"></div>
+      <div>
+        <div>Tables</div>
+        <button id="add-table">Ajouter table</button>
+        <button type="submit" id="delete-table">supprimer table</button>
+
+        <div class="tables-container">
+          <div class="table-container" data-table-number="1">
+            <div class="chair"></div>
+            <div class="chair"></div>
+            <div class="chair"></div>
+            <div class="chair"></div>
+            <div class="chair"></div>
+            <div class="chair"></div>
+            <div class="chair"></div>
+            <div class="chair"></div>
+            <div class="chair"></div>
+            <div class="chair"></div>
+            <div class="table"></div>
+          </div>
+        </div>
+      </div>
+    </dialog>
+
+    <template id="table-template">
+      <div class="table-container" data-table-number="">
+        <div class="chair"></div>
+        <div class="chair"></div>
+        <div class="chair"></div>
+        <div class="chair"></div>
+        <div class="chair"></div>
+        <div class="chair"></div>
+        <div class="chair"></div>
+        <div class="chair"></div>
+        <div class="chair"></div>
+        <div class="chair"></div>
+        <div class="table"></div>
+      </div>
+    </template>
+  </body>
+</html>
