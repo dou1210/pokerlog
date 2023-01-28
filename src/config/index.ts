@@ -9,17 +9,24 @@ class Config {
       id: "round-countdown-timer",
       initial: blindTime,
       current: blindTime,
-      interval: Time.toMilliseconds(4),
+      restartTime: Time.toMilliseconds(4),
     },
     break: {
       id: "break",
       initial: breakTime,
       current: breakTime,
-      interval: 0,
+      restartTime: 0,
     },
     elapsed: {
       id: "time-elapsed",
       current: 0,
+    },
+  };
+
+  public readonly counters = {
+    timeElapsed: {
+      id: "time-elapsed",
+      interval: Time.toMilliseconds(1),
     },
   };
 
@@ -43,6 +50,8 @@ class Config {
     "8K / 16K",
     "10K / 20K",
   ];
+
+  public readonly startingChips = 5000;
 }
 
 /**

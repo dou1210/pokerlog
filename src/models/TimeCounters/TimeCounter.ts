@@ -4,30 +4,29 @@ import { Time } from "../../services/Time";
 
 dayjs.extend(duration);
 
-export abstract class Countdown {
-  protected name: string = "";
-  protected isRestarting: boolean = false;
+export abstract class TimeCounter {
   protected _element: HTMLElement;
   protected id = "";
-  protected initial: number;
-  protected current: number = 30 * 60;
-  protected timeBetweenRestart: number;
+  protected end?: number;
+  protected current: number = 0;
+  protected countInterval: number;
   protected isStarted: boolean = false;
   protected intervalRef: NodeJS.Timer | number | null = null;
 
-  constructor(id: string, initial: number, timeBetweenRestart: number) {
+  constructor(id: string, countInterval: number, end?: number) {
     this.id = id;
     this._element = document.getElementById(id) as HTMLElement;
-    this.initial = initial;
-    this.current = initial;
 
-    if (timeBetweenRestart < 0) {
-      throw new Error(
-        "Le temps entre deux redémarrages ne peut pas être négatif"
-      );
+    if (end) {
+      this.end = end;
+      this.current = end;
     }
 
-    this.timeBetweenRestart = timeBetweenRestart;
+    if (countInterval < 0) {
+      throw new Error("L'interval ne peut pas être négatif.");
+    }
+
+    this.countInterval = countInterval;
   }
 
   public get timeLeft(): number {
@@ -50,20 +49,10 @@ export abstract class Countdown {
   protected abstract onCountdownEnd(): void;
 
   public start() {
-    const eventName = this.isRestarting
-      ? `${this.name}:restart`
-      : `${this.name}:start`;
-
-    // on envoie un événement pour dire que le compte à rebours a été démarré
-    // on peut utiliser cet événement pour désactiver le bouton de démarrage
-    const event = new Event(eventName);
-    document.dispatchEvent(event);
-
-    this.isRestarting = false;
     this._start();
     // on lance le compte à rebours toutes les secondes (1000ms) avec setInterval
     // on stocke la référence à l'interval dans une propriété pour pouvoir l'arrêter plus tard
-    this.intervalRef = setInterval(this._start.bind(this), 1000);
+    this.intervalRef = setInterval(this._start.bind(this), this.countInterval);
 
     this.isStarted = true;
   }
@@ -76,13 +65,13 @@ export abstract class Countdown {
     this._element.innerText = this.getFormattedTime();
 
     // si le temps est écoulé on arrête le compte à rebours
-    if (this.current - 1 <= 0) {
-      this.current = this.initial;
+    if (this.end && this.current + 1 >= this.end) {
+      this.current = 0;
       return this.onCountdownEnd();
     }
 
     // sinon on décrémente le temps
-    this.current -= 1;
+    this.current += 1;
   }
 
   public getFormattedTime() {
@@ -100,12 +89,5 @@ export abstract class Countdown {
       clearInterval(this.intervalRef);
     }
     this.isStarted = false;
-  }
-
-  public manualStop() {
-    this.stop();
-
-    const event = new Event(`${this.name}:manual_stop`);
-    document.dispatchEvent(event);
   }
 }

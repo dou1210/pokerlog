@@ -45,7 +45,7 @@ header {
   align-items: center;
 }
 
-.menu-toggle {
+#menu-toggle {
   background-color: transparent;
   border: none;
   color: #fff;

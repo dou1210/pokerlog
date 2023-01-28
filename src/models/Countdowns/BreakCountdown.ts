@@ -1,6 +1,8 @@
 import { Countdown } from "./Countdown";
 
 export class BreakCountdown extends Countdown {
+  protected name = "break_countdown";
+
   protected onCountdownEnd(): void {
     //
   }

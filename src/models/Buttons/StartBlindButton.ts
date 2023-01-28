@@ -1,5 +1,5 @@
 import { Button } from "./Button";
-import { Countdown } from "./Countdowns/Countdown";
+import { Countdown } from "../Countdowns/Countdown";
 
 export class StartBlindButton extends Button {
   constructor(id: string) {
@@ -12,8 +12,6 @@ export class StartBlindButton extends Button {
 
     // On écoute l'évènement "blind_countdown:restart" pour pouvoir réactiver le bouton
     document.addEventListener("blind_countdown:restart", () => {
-      console.log("blind_countdown:restart");
-
       this.enable();
     });
   }
@@ -49,7 +47,7 @@ export class StartBlindButton extends Button {
 
     element.addEventListener("click", () => {
       if (countdown.isRunning) {
-        countdown.stop();
+        countdown.manualStop();
         element.innerText = "Démarrer";
         return;
       }

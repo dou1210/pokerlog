@@ -1,16 +1,14 @@
 import { Countdown } from "./Countdown";
 
 export class BlindCountdown extends Countdown {
+  protected name = "blind_countdown";
+
   public restart(): void {
+    this.isRestarting = true;
     this.stop();
     this.current = this.initial;
     setTimeout(() => {
       this.start();
-
-      // on envoie un événement pour dire que le compte à rebours a été redémarré
-      // on peut utiliser cet événement pour réactiver le bouton de démarrage
-      const event = new Event("blind_countdown:restart");
-      document.dispatchEvent(event);
     }, this.timeBetweenRestart);
   }
 
