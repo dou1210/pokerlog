@@ -165,7 +165,6 @@ footer {
   border-radius: 0.5rem;
   width: 90%;
   height: 90vh;
-  overflow: auto;
   margin: auto;
   padding: 3rem 1rem 1rem;
 }
@@ -205,11 +204,17 @@ footer {
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
+.menu-content {
+  height: 100%;
+  overflow: auto;
+}
+
 .tables-container {
   display: grid;
   gap: 8rem 0;
   place-items: center;
   grid-template-columns: repeat(2, 1fr);
+  padding-block: 4rem;
 }
 
 .table-container {
@@ -224,6 +229,46 @@ footer {
   border-radius: 50%;
   z-index: 2;
   position: relative;
+}
+
+#add-table {
+  width: 4rem;
+  height: 4rem;
+  border-radius: 50%;
+  position: absolute;
+  bottom: 2rem;
+  right: 3rem;
+  z-index: 2;
+  background-color: white;
+  border: 4px solid rgba(89, 25, 25, 0.633);
+  cursor: pointer;
+  transition: all 200ms ease-in-out;
+}
+
+#add-table:hover {
+  transform: scale(1.1) rotate(90deg);
+}
+
+#add-table:before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 0.5rem;
+  height: 70%;
+  background-color: rgb(38, 125, 61);
+}
+
+#add-table:after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 70%;
+  height: 0.5rem;
+  background-color: rgb(38, 125, 61);
 }
 
 #remove-table {

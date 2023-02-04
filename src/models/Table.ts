@@ -1,34 +1,81 @@
+import { config } from "../config";
 import { Random } from "../services/Random";
 import { Chair } from "./Chair";
-import { Player } from "./Player";
 
 export class Table {
-  protected chairs: Chair[] = [
-    new Chair(),
-    new Chair(),
-    new Chair(),
-    new Chair(),
-  ];
+  protected chairs: Chair[] = [];
 
   private _tableHash: string = "tableHash";
+  private _containerElement: HTMLElement;
 
   public get hash(): string {
     return this._tableHash;
   }
 
-  constructor(name?: string, chairs?: Chair[]) {
+  constructor(containerElement: HTMLElement, name?: string, chairs?: Chair[]) {
+    this._containerElement = containerElement;
     this._tableHash = name || Random.id();
 
     if (chairs) {
       this.chairs = chairs;
     }
-
-    const player = new Player("Player 1");
-    this.chairs[2].affectPlayer(player);
   }
 
-  public addChair(chair: Chair): void {
+  public render(): this {
+    const tableTemplate = document.getElementById(
+      "table-template"
+    ) as HTMLTemplateElement | null;
+
+    if (!tableTemplate) {
+      throw new Error("Table template not found");
+    }
+
+    const tableTemplateElementContent = tableTemplate.content.cloneNode(
+      true
+    ) as HTMLElement;
+
+    const tableContainerElement = tableTemplateElementContent.querySelector(
+      ".table-container"
+    ) as HTMLElement;
+    tableContainerElement.setAttribute("data-table-number", this._tableHash);
+
+    const tableElement = tableTemplateElementContent.querySelector(
+      ".table"
+    ) as HTMLElement;
+
+    if (this.chairs.length) {
+      this.chairs.forEach((chair) => {
+        const chairElement = chair.render();
+        tableElement.insertAdjacentElement("beforebegin", chairElement);
+      });
+
+      this._containerElement.appendChild(tableTemplateElementContent);
+
+      return this;
+    }
+
+    for (let i = 0; i < config.tableDefaultNumberOfChairs; i++) {
+      const chair = new Chair();
+      const chairElement = chair.render();
+      tableElement.insertAdjacentElement("beforebegin", chairElement);
+    }
+
+    this._containerElement.appendChild(tableTemplateElementContent);
+
+    tableElement.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const tableElement = event.currentTarget as HTMLElement;
+      tableElement.closest(".table-container")?.remove();
+    });
+
+    return this;
+  }
+
+  public addChair(chair: Chair): this {
     this.chairs.push(chair);
+    this.render();
+
+    return this;
   }
 
   public getChairs(): Chair[] {
@@ -39,15 +86,25 @@ export class Table {
     return this.chairs[index];
   }
 
-  public removeChair(index: number): void {
+  public removeChair(index: number): this {
     this.chairs.splice(index, 1);
+    this.render();
+
+    return this;
   }
 
-  public removeAllChairs(): void {
+  public removeAllChairs(): this {
     this.chairs = [];
+
+    return this;
   }
 
   public getChairCount(): number {
     return this.chairs.length;
+  }
+
+  public addToGame() {
+    this.render();
+    return this;
   }
 }

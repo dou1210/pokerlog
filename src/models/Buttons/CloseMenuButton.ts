@@ -1,16 +1,19 @@
-import { MenuDialog } from "../Dialogs/MenuDialog";
+import { Dialog } from "../Dialogs/Dialog";
 import { Button } from "./Button";
 
 export class CloseMenuButton extends Button {
-  public constructor() {
+  private dialog: Dialog;
+
+  public constructor(dialog: Dialog) {
     super("menu-close");
+
+    this.dialog = dialog;
+    this.init();
   }
 
   public init() {
-    const menuDialog = new MenuDialog("menu");
-
     this.element.addEventListener("click", () => {
-      menuDialog.hide();
+      this.dialog.hide();
     });
   }
 }

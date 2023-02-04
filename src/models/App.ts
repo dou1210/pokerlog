@@ -1,7 +1,6 @@
 import { config } from "../config";
 import { Time } from "../services/Time";
 import { Blind } from "./Blind";
-import { CloseMenuButton } from "./Buttons/CloseMenuButton";
 import { MenuButton } from "./Buttons/MenuButton";
 import { StartBlindButton } from "./Buttons/StartBlindButton";
 import { BlindCountdown } from "./Countdowns/BlindCountdown";
@@ -47,9 +46,6 @@ export class App {
     Time.changeCurrentHTMLTime();
 
     const menuButton = new MenuButton();
-    const closeMenuButton = new CloseMenuButton();
-
     menuButton.init();
-    closeMenuButton.init();
   }
 }

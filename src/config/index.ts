@@ -52,6 +52,7 @@ class Config {
   ];
 
   public readonly startingChips = 5000;
+  public readonly tableDefaultNumberOfChairs = 10;
 }
 
 /**
