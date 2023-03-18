@@ -4,6 +4,7 @@ export class Chair {
   protected isOccupied: boolean = false;
   private _player: Player | null = null;
   private _element: HTMLDivElement;
+  public classNames: string[] = [];
 
   constructor(player?: Player) {
     this._element = document.createElement("div");
@@ -17,7 +18,9 @@ export class Chair {
     }
 
     this._element.addEventListener("click", (e) => {
-      if (this.isOccupied) return;
+      if (this.isOccupied) {
+        return;
+      }
 
       const playerName = prompt("Entrez le nom du joueur");
 
@@ -40,6 +43,7 @@ export class Chair {
   }
 
   public render(): HTMLElement {
+    this._element.classList.add(...this.classNames);
     return this._element;
   }
 

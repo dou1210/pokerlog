@@ -20,9 +20,11 @@ export class Table {
     this._containerElement = containerElement;
     this._tableHash = name || Random.id();
 
-    if (chairs) {
-      this.chairs = chairs;
+    if (!chairs) {
+      return;
     }
+
+    this.chairs = chairs;
   }
 
   public render(): this {
@@ -50,28 +52,9 @@ export class Table {
     const tableNameElement = document.createElement("span");
     tableNameElement.className = "table-name";
     tableNameElement.textContent = this._tableHash;
-    tableElement.append(tableNameElement);
-
-    if (this.chairs.length) {
-      this.chairs.forEach((chair) => {
-        const chairElement = chair.render();
-        tableElement.insertAdjacentElement("beforebegin", chairElement);
-      });
-
-      this._containerElement.appendChild(tableTemplateElementContent);
-
-      return this;
-    }
-
-    for (let i = 0; i < config.tableDefaultNumberOfChairs; i++) {
-      const chair = new Chair();
-      const chairElement = chair.render();
-      tableElement.insertAdjacentElement("beforebegin", chairElement);
-    }
-
-    this._containerElement.appendChild(tableTemplateElementContent);
 
     tableElement.addEventListener("click", (event) => {
+      console.log("supprimer table");
       event.stopPropagation();
 
       const shouldRemoveTable = confirm(
@@ -83,6 +66,45 @@ export class Table {
       const tableElement = event.currentTarget as HTMLElement;
       tableElement.closest(".table-container")?.remove();
     });
+
+    tableElement.append(tableNameElement);
+
+    if (this.chairs.length) {
+      const placedChairs: number[] = [];
+
+      this.chairs.forEach((chair) => {
+        let randomChairNumber = Random.number(
+          1,
+          config.tableDefaultNumberOfChairs
+        );
+
+        while (placedChairs.includes(randomChairNumber)) {
+          randomChairNumber = Random.number(
+            1,
+            config.tableDefaultNumberOfChairs
+          );
+        }
+
+        chair.classNames.push(`chair-${randomChairNumber}`);
+        placedChairs.push(randomChairNumber);
+
+        const chairElement = chair.render();
+        tableElement.insertAdjacentElement("beforebegin", chairElement);
+      });
+
+      this._containerElement.appendChild(tableTemplateElementContent);
+
+      return this;
+    }
+
+    for (let i = 0; i < config.tableDefaultNumberOfChairs; i++) {
+      const chair = new Chair();
+      chair.classNames.push(`chair-${i + 1}`);
+      const chairElement = chair.render();
+      tableElement.insertAdjacentElement("beforebegin", chairElement);
+    }
+
+    this._containerElement.appendChild(tableTemplateElementContent);
 
     return this;
   }

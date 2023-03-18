@@ -319,61 +319,61 @@ footer {
   border: 1px solid rgba(89, 25, 25, 0.633);
 }
 
-.chair:nth-child(1) {
+.chair.chair-1 {
   transform: rotate(-90deg);
   left: 2rem;
   top: 5rem;
 }
 
-.chair:nth-child(2) {
+.chair.chair-2 {
   transform: rotate(-30deg);
   top: 0;
   left: 5.5rem;
 }
 
-.chair:nth-child(3) {
+.chair.chair-3 {
   transform: rotate(-8deg);
   top: -2rem;
   left: 11.5rem;
 }
 
-.chair:nth-child(4) {
+.chair.chair-4 {
   transform: rotate(12deg);
   top: -2rem;
   left: 17.5rem;
 }
 
-.chair:nth-child(5) {
+.chair.chair-5 {
   transform: rotate(32deg);
   left: 23rem;
   top: 0;
 }
 
-.chair:nth-child(6) {
+.chair.chair-6 {
   transform: rotate(90deg);
   left: 26rem;
   top: 5rem;
 }
 
-.chair:nth-child(7) {
+.chair.chair-7 {
   transform: rotate(-212deg);
   left: 23rem;
   bottom: 0;
 }
 
-.chair:nth-child(8) {
+.chair.chair-8 {
   transform: rotate(-192deg);
   bottom: -2rem;
   left: 17.5rem;
 }
 
-.chair:nth-child(9) {
+.chair.chair-9 {
   transform: rotate(-172deg);
   bottom: -2rem;
   left: 11.5rem;
 }
 
-.chair:nth-child(10) {
+.chair.chair-10 {
   transform: rotate(-150deg);
   bottom: 0;
   left: 5.5rem;
