@@ -15,7 +15,9 @@ export class AddTableButton extends Button {
 
       if (!tablesContainerElement) return;
 
-      new Table(tablesContainerElement).addToGame();
+      const tableName = prompt("Quel est le nom de la table?");
+
+      new Table(tablesContainerElement, tableName).addToGame();
     });
   }
 }

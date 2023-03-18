@@ -12,7 +12,11 @@ export class Table {
     return this._tableHash;
   }
 
-  constructor(containerElement: HTMLElement, name?: string, chairs?: Chair[]) {
+  constructor(
+    containerElement: HTMLElement,
+    name?: string | null,
+    chairs?: Chair[]
+  ) {
     this._containerElement = containerElement;
     this._tableHash = name || Random.id();
 
@@ -43,6 +47,11 @@ export class Table {
       ".table"
     ) as HTMLElement;
 
+    const tableNameElement = document.createElement("span");
+    tableNameElement.className = "table-name";
+    tableNameElement.textContent = this._tableHash;
+    tableElement.append(tableNameElement);
+
     if (this.chairs.length) {
       this.chairs.forEach((chair) => {
         const chairElement = chair.render();
@@ -64,6 +73,13 @@ export class Table {
 
     tableElement.addEventListener("click", (event) => {
       event.stopPropagation();
+
+      const shouldRemoveTable = confirm(
+        `Voulez vous vraiment supprimer la table "${this._tableHash}"?`
+      );
+
+      if (!shouldRemoveTable) return;
+
       const tableElement = event.currentTarget as HTMLElement;
       tableElement.closest(".table-container")?.remove();
     });
