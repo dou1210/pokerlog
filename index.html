@@ -16,7 +16,10 @@
     <div class="main-container">
       <header>
         <p>MTT n°2 du 30 septembre 2022</p>
-        <button id="menu-toggle">menu</button>
+        <div class="menu-container">
+          <button id="menu-toggle">tables</button>
+          <button id="players-list-toggle">joueurs</button>
+        </div>
       </header>
       <main>
         <div class="left">
@@ -74,12 +77,18 @@
         </span>
       </footer>
     </div>
+
     <dialog id="menu">
       <div title="fermer" id="menu-close" class="cross"></div>
       <div class="menu-content">
         <div class="tables-container"></div>
         <button id="add-table"></button>
       </div>
+    </dialog>
+
+    <dialog id="players-list">
+      <div title="fermer" id="players-list-close" class="cross"></div>
+      <div class="players-list-container"></div>
     </dialog>
 
     <template id="table-template">
