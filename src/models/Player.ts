@@ -1,15 +1,18 @@
-import { config } from "../config";
-import { Random } from "../services/Random";
-import { Chair } from "./Chair";
+import { config } from '../config';
+import { Random } from '../services/Random';
+import { App } from './App';
+import { Chair } from './Chair';
 
 export class Player {
-  protected _id: string = Random.id();
+  public readonly id: string = Random.id();
   protected _name: string;
   protected _chips: number = 0;
   protected _chair: Chair | null = null;
 
   constructor(name: string, chips?: number) {
     this._name = name;
+
+    App.addPlayerToGame(this);
 
     if (!chips) {
       this._chips = config.startingChips;
